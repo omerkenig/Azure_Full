@@ -1,0 +1,1 @@
+resource_group = "Omer_RG"
