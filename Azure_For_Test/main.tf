@@ -5,6 +5,7 @@ terraform {
       version = "3.110.0"
     }
   }
+
 }
 
 provider "azurerm" {
@@ -13,9 +14,10 @@ provider "azurerm" {
   }
 }
 
+
 //added module for virtual network
 module "Omer_vnet" {
-  source                = "./modules/network"
+  source                = "./modules/network/"
   resource_group_name   = var.resource_group_name
   location              = var.location
   address_space         = var.vnet_address_space
@@ -23,7 +25,7 @@ module "Omer_vnet" {
   subnet_address_ranges = var.subnet_address_ranges
 }
 module "nsg_public_subnet" {
-  source              = "./modules/nsg"
+  source              = "./modules/NSG/"
   resource_group_name = var.resource_group_name
   subnet_name         = var.subnet_names[1]
   allow_inbound_ports = var.public_subnet_nsg_allow_ports
@@ -57,11 +59,13 @@ module "nsg_associations" {
 
 module "vm" {
   source              = "./modules/vm"
-  vm_name             = "Omer-vm"
-  nic_name            = "Omer-nic"
+  vm_name             = "Test-vm"
+  nic_name            = "Test-nic"
   location            = var.location
   vm_size             = "Standard_D2s_v3"
   resource_group_name = var.resource_group_name
   subnet_id           = module.Omer_vnet.subnet_ids.private_subnet_id
   priority            = "spot"
+
+
 }
