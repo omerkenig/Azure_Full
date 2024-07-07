@@ -1,5 +1,5 @@
 resource "azurerm_linux_virtual_machine" "example" {
-  #     name                            = "example-vm-${count.index + 1}"
+  #     name                            = "example-virtual-machine-${count.index + 1}"
   name = var.virtual_machine_name
   #   count                           = var.NumberOfMachines
   resource_group_name             = azurerm_resource_group.example.name

@@ -1,71 +1,50 @@
 terraform {
   required_providers {
     azurerm = {
-      source  = "hashicorp/azurerm"
+      source = "hashicorp/azurerm"
       version = "3.110.0"
     }
   }
-
 }
 
 provider "azurerm" {
-  skip_provider_registration = "true"
-  features {
+  # Configuration options
+  features{
+
   }
 }
 
-
-//added module for virtual network
-module "Omer_vnet" {
-  source                = "./modules/network/"
-  resource_group_name   = var.resource_group_name
-  location              = var.location
-  address_space         = var.vnet_address_space
-  subnet_names          = var.subnet_names
-  subnet_address_ranges = var.subnet_address_ranges
+resource "azurerm_resource_group" "rg" {
+  name     = var.resource_group_name
+  location = var.location
 }
-module "nsg_public_subnet" {
-  source              = "./modules/NSG/"
-  resource_group_name = var.resource_group_name
-  subnet_name         = var.subnet_names[1]
-  allow_inbound_ports = var.public_subnet_nsg_allow_ports
+module "virtual-network" {
+  source                        = "./modules/virtual-network"
+  virtual_network_name          = var.virtual_network_name
+  resource_group_name           = var.resource_group_name
+  location                      = var.location
+  virtual_network_address_space = var.virtual_network_address_space
+  subnet_name                   = var.subnet_name
+  subnet_address_prefix         = var.subnet_address_prefix
+}
+module "network-interface" {
+  source              = "./modules/network-interface"
+  vmname              = var.vmname
   location            = var.location
-}
-
-module "nsg_jumpbox_subnet" {
-  source              = "./modules/nsg"
   resource_group_name = var.resource_group_name
-  subnet_name         = var.subnet_names[2]
-  allow_inbound_ports = var.jumpbox_subnet_nsg_allow_ports
-  location            = var.location
+  subnet_id           = module.virtual-network.subnet_id
 }
-
-module "nsg_private_subnet" {
-  source              = "./modules/nsg"
+module "virtual-machine" {
+  source              = "./modules/virtual-machine"
+  vmname              = var.vmname
+  location            = var.location
   resource_group_name = var.resource_group_name
-  subnet_name         = var.subnet_names[0]
-  allow_inbound_ports = []  # No custom rules for the private subnet
-  location            = var.location
-}
-
-module "nsg_associations" {
-  source     = "./modules/nsg_associations"
-  subnet_ids = module.Omer_vnet.subnet_ids
-  nsg_ids = [
-    module.nsg_private_subnet.private_nsg_id, module.nsg_public_subnet.public_nsg_id,
-    module.nsg_jumpbox_subnet.jumpbox_nsg_id
-  ]
-}
-
-module "vm" {
-  source              = "./modules/vm"
-  vm_name             = "Test-vm"
-  nic_name            = "Test-nic"
-  location            = var.location
-  vm_size             = "Standard_D2s_v3"
-  resource_group_name = var.resource_group_name
-  subnet_id           = module.Omer_vnet.subnet_ids.private_subnet_id
-  priority            = "spot"
-
-
+  network_interface_ids = [module.network-interface.nic_id]
+  vm_size             = var.vm_size
+  os_disk_type        = var.os_disk_type
+  admin_usename       = var.admin_usename
+  admin_password      = var.admin_password
+  image_publisher     = var.image_publisher
+  image_offer         = var.image_offer
+  image_sku           = var.image_sku
 }

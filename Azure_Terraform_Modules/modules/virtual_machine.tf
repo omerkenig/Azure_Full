@@ -1,5 +1,5 @@
-# resource "azurerm_virtual_machine" "vm" {
-#   name                  = "${var.prefix}-vm"
+# resource "azurerm_virtual_machine" "virtual-machine" {
+#   name                  = "${var.prefix}-virtual-machine"
 #   resource_group_name   = azurerm_resource_group.rg.name
 #   location              = azurerm_resource_group.rg.location
 #   size                  = "Standard_D2s_v3"

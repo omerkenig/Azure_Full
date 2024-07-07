@@ -1,67 +1,83 @@
 variable "resource_group_name" {
   type        = string
-  description = "Azure resource group name"
-  default     = "nsg-public"
+  description = "resource group name of the virtual network"
+  default     = "testrg"
 }
 
 variable "location" {
-  description = "Azure region for resources"
   type        = string
-  default     = "east us"
+  description = "location of the virtual network"
+  default     = "East US"
 }
 
-variable "vnet_address_space" {
-  description = "Address space for the Virtual Network"
+variable "virtual_network_name" {
+  type        = string
+  description = "name of the virtual network"
+  default     = "VnetName"
+}
+
+variable "virtual_network_address_space" {
   type = list(string)
-  default = ["10.0.0.0/26"]
+  description = "address space of the virtual network"
+  default = ["VnetAddressNameSpace"]
 }
 
-variable "subnet_names" {
-  description = "List of subnet names"
+variable "subnet_name" {
+  type        = string
+  description = "name of the subnet"
+  default     = "SubnetName"
+}
+
+variable "subnet_address_prefix" {
   type = list(string)
-  default = ["private", "public", "jumpbox"]
+  description = "address prefix of the subnet"
+  default = ["10.0.0.0/24"]
+
 }
 
-variable "subnet_address_ranges" {
-  description = "List of subnet address ranges"
-  type = list(string)
-  default = ["10.0.0.0/28", "10.0.0.16/28", "10.0.0.32/28"]
-}
-
-variable "public_subnet_nsg_allow_ports" {
-  description = "List of allowed inbound ports for the public subnet NSG"
-  type = list(number)
-  default = [80, 443]
-}
-
-variable "jumpbox_subnet_nsg_allow_ports" {
-  description = "List of allowed inbound ports for the jumpbox subnet NSG"
-  type = list(number)
-  default = [22]
-}
-
-variable "subnet_id" {
-  description = "ID of the jumpbox subnet"
+variable "vmname" {
   type        = string
-  default     = "Test_Subnet"
-}
-
-variable "vm_name" {
-  description = "Name of the virtual machine"
-  type        = string
-  default     = "Test_Vm_name"
-
-}
-
-variable "nic_name" {
-  description = "Name of the NIC"
-  type        = string
-  default     = "Test_NIC_name"
-
+  description = "name of the vm"
+  default     = "VmName"
 }
 
 variable "vm_size" {
-  description = "Vm size"
   type        = string
-  default     = "Standard_DS1_v2"
+  description = "size of the virtual machine"
+  default     = "Standard_D2s_v3"
+}
+variable "os_disk_type" {
+  type        = string
+  description = "type of the os disk. example Standard_LRS"
+  default     = "Standard_LRS"
+
+}
+variable "admin_usename" {
+  type        = string
+  description = "local admin user of the virtual machine"
+  default     = "AdminUser"
+}
+
+variable "admin_password" {
+  type        = string
+  description = "password of the local admin user"
+  default     = "!Aa010101!"
+}
+
+variable "image_publisher" {
+  type        = string
+  description = "Azure image publisher"
+  default     = "MicrosoftWindowsServer"
+}
+
+variable "image_offer" {
+  type        = string
+  description = "Azure image offer"
+  default     = "WindowsServer"
+}
+
+variable "image_sku" {
+  type        = string
+  description = "Azure image sku"
+  default     = "2016-Datacenter"
 }
