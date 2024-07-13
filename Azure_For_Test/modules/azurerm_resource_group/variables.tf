@@ -1,7 +1,9 @@
 variable "name" {
-  type = string
+  type    = string
+  default = "azurerm_rg"
 }
 
 variable "location" {
-  type = string
+  type    = string
+  default = "east us"
 }

@@ -8,13 +8,6 @@ terraform {
 
 }
 
-provider "azurerm" {
-  skip_provider_registration = "true"
-  features {
-  }
-}
-
-
 //added module for virtual network
 module "Omer_vnet" {
   source                = "./modules/network/"
@@ -23,6 +16,7 @@ module "Omer_vnet" {
   address_space         = var.vnet_address_space
   subnet_names          = var.subnet_names
   subnet_address_ranges = var.subnet_address_ranges
+  virtual_network_name  = var.virtual_network_name
 }
 module "nsg_public_subnet" {
   source              = "./modules/NSG/"
