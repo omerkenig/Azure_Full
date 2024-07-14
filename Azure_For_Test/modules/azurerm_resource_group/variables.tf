@@ -1,9 +1,2 @@
-variable "name" {
-  type    = string
-  default = "azurerm_rg"
-}
-
-variable "location" {
-  type    = string
-  default = "east us"
-}
+variable "azurerm_resource_group" {}
+variable "location" {}

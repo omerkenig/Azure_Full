@@ -1,145 +1,96 @@
-variable "resource_group_name" {
+variable "azurerm_resource_group" {
+  description = "azurerm_resource_group"
   type        = string
-  description = "Azure resource group name"
-  default     = "nsg-public"
+  default     = "example-resources"
 }
-
 variable "location" {
-  description = "Azure region for resources"
+  description = "Azure location"
   type        = string
-  default     = "east us"
+  default     = "west Europe"
 }
-
-variable "virtual_network_name" {
-  description = "virtual network name"
-  type        = string
-  default     = "virtual_network"
-}
-
-variable "vnet_address_space" {
-  description = "Address space for the Virtual Network"
+variable "address_space" {
+  description = "Space-separated list of IP address ranges that can be used by subnets within the virtual network."
   type = list(string)
-  default = ["10.0.0.0/26"]
+  default = ["10.0.0.0/16"]
+}
+variable "name" {
+  description = "Name of the virtual network"
+  type        = string
+  default     = "internal"
+}
+variable "resource_group_name" {
+  description = "Resource group name"
+  type        = string
+  default     = "example"
 }
 
+variable "tags" {
+  description = "Tags to be applied to all resources"
+  type = list(string)
+  default = ["test-tags", "development", "production"]
+}
+
+variable "azurerm_virtual_network" {
+  description = "azurerm_virtual_network"
+  type = list(string)
+  address_space = ["10.0.0.0/16"]
+}
+
+variable "azurerm_subnet" {
+  description = "azurerm_subnet"
+  type = list(string)
+  address_space = ["10.0.2.0/24"]
+}
+
+variable "azurerm_linux_virtual_machine_scale_set_name" {
+  description = "azurerm_linux_virtual_machine_scale_set_name"
+  type        = string
+  default     = "example-vmss"
+}
+
+variable "sku_size" {
+  description = "Size of the VMSS VMs"
+  type        = string
+  default     = "Standard_D2s_v5"
+}
+variable "instances" {
+  description = "Number of VMSS VMs"
+  type        = number
+  default     = 2
+}
+variable "admin_username" {
+  description = "Username for the VMSS VMs"
+  type        = string
+  default     = "adminuser"
+}
+variable "admin_password" {
+  description = "Password for the VMSS VMs"
+  type        = string
+  default     = "Pa$$word123!"
+}
+variable "username" {
+  description = "Username for SSH access"
+  type        = string
+  default     = "azureuser"
+}
 variable "subnet_names" {
-  description = "List of subnet names"
+  description = "Names of the subnets"
   type = list(string)
-  default = ["private", "public", "jumpbox"]
+  default = ["subnet1", "subnet2"]
 }
-
 variable "subnet_address_ranges" {
   description = "List of subnet address ranges"
   type = list(string)
   default = ["10.0.0.0/28", "10.0.0.16/28", "10.0.0.32/28"]
 }
-
-variable "public_subnet_nsg_allow_ports" {
-  description = "List of allowed inbound ports for the public subnet NSG"
-  type = list(number)
-  default = [80, 443]
-}
-
-variable "jumpbox_subnet_nsg_allow_ports" {
-  description = "List of allowed inbound ports for the jumpbox subnet NSG"
-  type = list(number)
-  default = [22]
-}
-
-variable "subnet_id" {
-  description = "ID of the jumpbox subnet"
+variable "virtual_network_name" {
+  description = "virtual network name"
   type        = string
-  default     = "Test_Subnet"
+  default     = "virtual_network"
 }
-
-variable "vm_name" {
-  description = "Name of the virtual machine"
-  type        = string
-  default     = "Test_Vm_name"
+variable "address_prefixes" {
+  description = "List of address prefixes"
+  type = list(string)
+  default = ["10.0.0.0/24"]
 }
-
-variable "nic_name" {
-  description = "Name of the NIC"
-  type        = string
-  default     = "Test_NIC_name"
-}
-
-variable "vm_size" {
-  description = "Vm size"
-  type        = string
-  default     = "Standard_DS1_v2"
-}
-
-variable "frontend_ip_configuration_name" {
-  description = "Frontend ip configuration name"
-  type        = string
-  default     = "PublicIPAddress"
-}
-
-variable "allocation_method" {
-  description = "Allocation method"
-  type        = string
-  default     = "Static"
-}
-
-variable "azurerm_lb_name" {
-  description = "Azurerm lb name"
-  type        = string
-  default     = "test_LB_name"
-}
-
-variable "azurerm_lb_backend_address_pool_name" {
-  description = "Azurerm lb backend address pool name"
-  type        = string
-  default     = "BackEndAddressPool"
-}
-
-variable "azurerm_public_ip" {
-  description = "Azurerm public ip"
-  type        = string
-  default     = "PublicIPAddress"
-}
-
-variable "frontend_port_start" {
-  description = "Frontend port start"
-  type        = number
-  default     = 50000
-}
-
-variable "frontend_port_end" {
-  description = "Frontend port end"
-  type        = number
-  default     = 50119
-}
-
-variable "backend_port" {
-  description = "Backend port"
-  type        = number
-  default     = 22
-}
-
-variable "protocol" {
-  description = "Protocol"
-  type        = string
-  default     = "Tcp"
-}
-
-variable "azurerm_lb_nat_pool_name" {
-  description = "Azurerm lb nat pool name"
-  type        = string
-  default     = "ssh"
-}
-
-variable "azurerm_lb_probe" {
-  description = "Azurerm lb probe name"
-  type        = string
-  default     = "http-probe"
-}
-
-variable "azurerm_subnet" {
-  description = "Azurerm subnet"
-  type        = string
-  default     = "subnet"
-}
-
 
