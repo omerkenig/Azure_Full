@@ -1,9 +1,13 @@
-variable "name" {
-  type = string
-  default     = "rg"
-}
-
-variable "location" {
-  type    = string
-  default = "west Europe"
-}
+# variable "name" {
+#   type = string
+# #   default     = "rg"
+# }
+#
+# variable "location" {
+#   type    = string
+#   default = "east us"
+# }
+#
+# variable "azurerm_resource_group" {
+#   default = ""
+# }
