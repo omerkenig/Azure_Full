@@ -1,28 +1,69 @@
-//added module for virtual network
-module "Test_vnet" {
-  source                                       = "../modules/network/"
-  resource_group_name                          = var.resource_group_name
-  location                                     = var.location
-  address_space                                = var.address_space
-  subnet_names                                 = var.subnet_names
-  subnet_address_ranges                        = var.subnet_address_ranges
-  virtual_network_name                         = var.virtual_network_name
-  address_prefixes                             = var.address_prefixes
-  admin_username                               = var.admin_username
-  azurerm_linux_virtual_machine_scale_set_name = var.azurerm_linux_virtual_machine_scale_set_name
-  azurerm_resource_group                       = var.azurerm_resource_group
-  azurerm_subnet                               = var.azurerm_subnet
-  azurerm_virtual_network                      = var.azurerm_virtual_network
-  instances                                    = var.instances
-  name                                         = var.name
-  sku_size                                     = var.sku_size
-  tags                                         = var.tags
-  username                                     = var.username
-}
-module "Test_RG" {
-  source                 = "../modules/azurerm_resource_group/"
-  azurerm_resource_group = "test_RG"
-  location               = "west Europe"
+resource "azurerm_resource_group" "example" {
+  name = var.name
+  location = var.location
 }
 
+# resource "azurerm_network_security_group" "example" {
+#   name                = "example-security-group"
+#   location            = azurerm_resource_group.example.location
+#   resource_group_name = azurerm_resource_group.example.name
+# }
 
+
+resource "azurerm_virtual_network" "example" {
+  name                = "example-network"
+  location            = azurerm_resource_group.example.location
+  resource_group_name = azurerm_resource_group.example.name
+  address_space       = ["10.10.0.0/16"]
+
+  subnet {
+    name           = "subnet1"
+    address_prefix = "10.10.1.0/24"
+  }
+
+  subnet {
+    name           = "subnet2"
+    address_prefix = "10.10.2.0/24"
+#     security_group = azurerm_network_security_group.example.id
+  }
+
+  tags = {
+    environment = "Test environment"
+  }
+}
+
+resource "azurerm_virtual_network" "example-1" {
+  name                = "example-network"
+  location            = azurerm_resource_group.example.location
+  resource_group_name = azurerm_resource_group.example.name
+  address_space       = ["10.11.0.0/16"]
+
+  subnet {
+    name           = "subnet1"
+    address_prefix = "10.11.1.0/24"
+  }
+
+  subnet {
+    name           = "subnet2"
+    address_prefix = "10.11.2.0/24"
+#     security_group = azurerm_network_security_group.example.id
+  }
+
+  tags = {
+    environment = "Test environment"
+  }
+}
+
+resource "azurerm_virtual_network_peering" "example-1" {
+  name                      = "peer1to2"
+  resource_group_name       = azurerm_resource_group.example.name
+  virtual_network_name      = azurerm_virtual_network.example.name
+  remote_virtual_network_id = azurerm_virtual_network.example.id
+}
+
+resource "azurerm_virtual_network_peering" "example-2" {
+  name                      = "peer2to1"
+  resource_group_name       = azurerm_resource_group.example.name
+  virtual_network_name      = azurerm_virtual_network.example.name
+  remote_virtual_network_id = azurerm_virtual_network.example.id
+}
