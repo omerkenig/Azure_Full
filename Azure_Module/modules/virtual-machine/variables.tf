@@ -1,28 +1,10 @@
-variable "vmname" {
-    type = string
-    description = "The name of the virtual machine"
-    default = "testvm"
-}
-variable "resource_group_name" {
-    type = string
-    description = "The name of resource group"
-    default =   "OmerRG"
-}
-variable "location" {
-    type = string
-    description = "Azure location "
-    default = "westus"
-}
+
 variable "network_interface_ids" {
     type = list(string)
     description = "network interface id"
     default = ["/subscriptions/00000000-0000-"]
 }
-variable "vm_size" {
-    type = string
-    description = "size of the virtual machine"
-    default = "Standard_D2s_v3"
-}
+
 variable "os_disk_type" {
     type = string
     description = "type of the os disk. example Standard_LRS"

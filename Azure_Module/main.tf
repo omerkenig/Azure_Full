@@ -1,12 +1,4 @@
-terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "3.110.0"
-    }
-  }
 
-}
 
 //added module for virtual network
 module "Omer_vnet" {
