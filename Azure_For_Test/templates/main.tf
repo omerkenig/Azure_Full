@@ -2,10 +2,31 @@
 module "azurerm_resource_group" {
   source = "../modules/azurerm_resource_group/"
 
-  location            = ""
-  resource_group_name = ""
-  tags                = ""
+  location            = var.location
+  resource_group_name = var.resource_group_name
+  tags                = var.tags
 }
+
+
+
+module "lb" {
+  source = "../modules/lb/"
+  application_port = var.application_port
+  location = var.location
+  tags = var.tags
+  name = var.name
+  azurerm_public_ip = var.azurerm_public_ip
+  resource_group_name = var.resource_group_name
+  azurerm_resource_group = var.resource_group_name
+}
+
+module "netwotk" {
+  source = "../modules/net/"
+  location = var.location
+  tags = var.tags
+  resource_group_name = var.resource_group_name
+}
+
 # resource "azurerm_resource_group" "vmss" {
 #   name     = var.resource_group_name
 #   location = var.location
