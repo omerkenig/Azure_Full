@@ -1,1 +1,1 @@
-variable "azurerm_resource_group" {}
+variable "resource_group_name" {}

@@ -1,7 +1,7 @@
 resource "azurerm_virtual_network" "example-01" {
   name                = "example-network-01"
-  location            = var.azurerm_resource_group.example.location
-  resource_group_name = var.azurerm_resource_group.example.name
+  location            = var.resource_group_name.example.location
+  resource_group_name = var.resource_group_name.example.name
   address_space = ["10.10.0.0/16"]
   subnet {
     name           = "subnet1"
@@ -21,8 +21,8 @@ resource "azurerm_virtual_network" "example-01" {
 
 resource "azurerm_virtual_network" "example-02" {
   name                = "example-network-02"
-  location            = var.azurerm_resource_group.example.location
-  resource_group_name = var.azurerm_resource_group.example.name
+  location            = var.resource_group_name.example.location
+  resource_group_name = var.resource_group_name.example.name
   address_space = ["10.11.0.0/16"]
   subnet {
     name           = "subnet1"

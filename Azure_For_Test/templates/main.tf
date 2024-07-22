@@ -1,9 +1,10 @@
+
 module "vm" {
   source                    = "../modules/vm"
-  azurerm_resource_group    = ""
   size                      = ""
   username                  = ""
-  azurerm_network_interface = ""
+  azurerm_network_interface = var.azurerm_network_interface
+  resource_group_name       = ""
 }
 # resource "azurerm_resource_group" "example" {
 #   name     = "example-resources"

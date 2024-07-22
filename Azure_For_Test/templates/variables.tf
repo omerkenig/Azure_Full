@@ -11,23 +11,25 @@ variable "location" {
   default     = "eastus"
 }
 
-# variable "azurerm_network_interface" {
-#   type = object({
-#     name           = string
-#     resource_group = string
-#     location       = string
-#     subnet_id      = string
-#     ip_configuration = object({
-#       name               = string
-#       subnet_id          = string
-#       private_ip_address = string
-#     })
-#   })
-# }
-variable "username"{
-  type = string
+variable "azurerm_network_interface" {
+  type = object({
+    name                 = string
+    resource_group_name  = string
+    location             = string
+    enable_ip_forwarding = bool
+    ip_configurations = [
+      object({
+        name      = string
+        subnet_id = string
+      })
+    ]
+  })
+}
+
+variable "username" {
+  type        = string
   description = "The username for the VM"
-  default = "adminuser"
+  default     = "adminuser"
 }
 
 variable "size" {

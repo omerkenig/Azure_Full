@@ -1,13 +1,13 @@
+
 resource "azurerm_linux_virtual_machine" "example" {
   name                = "example-machine"
-  resource_group_name = var.azurerm_resource_group.example.name
-  location            = var.azurerm_resource_group.example.location
+  resource_group_name = var.resource_group_name.example.name
+  location            = var.resource_group_name.example.location
   size                = var.size
   admin_username      = "adminuser"
-  network_interface_ids = var.azurerm_network_interface.example.id
 
   admin_ssh_key {
-    username   = var.username
+    username = var.username
     public_key = file("~/.ssh/id_rsa.pub")
   }
 
@@ -22,4 +22,5 @@ resource "azurerm_linux_virtual_machine" "example" {
     sku       = "22_04-lts"
     version   = "latest"
   }
+  network_interface_ids = [var.azurerm_network_interface.example.id]
 }
