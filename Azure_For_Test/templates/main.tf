@@ -1,7 +1,10 @@
 
-module "azurerm_resource_group"{
-  source "../modules/azurerm_resource_group" {
-}
+module "azurerm_resource_group" {
+  source = "../modules/azurerm_resource_group/"
+
+  location            = ""
+  resource_group_name = ""
+  tags                = ""
 }
 # resource "azurerm_resource_group" "vmss" {
 #   name     = var.resource_group_name
