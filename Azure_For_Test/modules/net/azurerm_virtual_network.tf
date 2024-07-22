@@ -1,41 +1,8 @@
-resource "azurerm_virtual_network" "example-01" {
-  name                = "example-network-01"
-  location            = var.resource_group_name.example.location
-  resource_group_name = var.resource_group_name.example.name
-  address_space = ["10.10.0.0/16"]
-  subnet {
-    name           = "subnet1"
-    address_prefix = "10.10.1.0/24"
-  }
 
-  subnet {
-    name           = "subnet2"
-    address_prefix = "10.10.2.0/24"
-    #     security_group = azurerm_network_security_group.example.id
-  }
-
-  tags = {
-    environment = "Test environment-01"
-  }
-}
-
-resource "azurerm_virtual_network" "example-02" {
-  name                = "example-network-02"
-  location            = var.resource_group_name.example.location
-  resource_group_name = var.resource_group_name.example.name
-  address_space = ["10.11.0.0/16"]
-  subnet {
-    name           = "subnet1"
-    address_prefix = "10.11.1.0/24"
-  }
-
-  subnet {
-    name           = "subnet2"
-    address_prefix = "10.11.2.0/24"
-    #     security_group = azurerm_network_security_group.example.id
-  }
-
-  tags = {
-    environment = "Test environment-02"
-  }
+resource "azurerm_virtual_network" "vmss" {
+  name                = "vmss-vnet"
+  address_space       = ["10.0.0.0/16"]
+  location            = var.location
+  resource_group_name = azurerm_resource_group.vmss.name
+  tags                = var.tags
 }

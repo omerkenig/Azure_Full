@@ -1,4 +1,4 @@
-variable "resource_group_name" {}
-variable "username"{}
-variable "size" {}
-variable "azurerm_network_interface" {}
+variable "location" {}
+variable "admin_user" {}
+variable "admin_password" {}
+variable "tags" {}
