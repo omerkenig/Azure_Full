@@ -1,8 +1,7 @@
-
 resource "azurerm_virtual_machine_scale_set" "vmss" {
   name                = "vmscaleset"
   location            = var.location
-  resource_group_name = azurerm_resource_group.vmss.name
+  resource_group_name = var.resource_group_name
   upgrade_policy_mode = "Manual"
 
   sku {
@@ -36,7 +35,7 @@ resource "azurerm_virtual_machine_scale_set" "vmss" {
     computer_name_prefix = "vmlab"
     admin_username       = var.admin_user
     admin_password       = var.admin_password
-    custom_data          = file("web.conf")
+    custom_data = file("web.conf")
   }
 
   os_profile_linux_config {
@@ -48,10 +47,10 @@ resource "azurerm_virtual_machine_scale_set" "vmss" {
     primary = true
 
     ip_configuration {
-      name                                   = "IPConfiguration"
-      subnet_id                              = azurerm_subnet.vmss.id
-      load_balancer_backend_address_pool_ids = [azurerm_lb_backend_address_pool.bpepool.id]
-      primary                                = true
+      name      = "IPConfiguration"
+      subnet_id = var.subnet_id
+#       load_balancer_backend_address_pool_ids = var.azurerm_lb_backend_address_pool_id
+      primary   = true
     }
   }
 
@@ -61,20 +60,20 @@ resource "azurerm_virtual_machine_scale_set" "vmss" {
 resource "azurerm_public_ip" "jumpbox" {
   name                = "jumpbox-public-ip"
   location            = var.location
-  resource_group_name = azurerm_resource_group.vmss.name
+  resource_group_name = var.resource_group_name
   allocation_method   = "Static"
-  domain_name_label   = "${random_string.fqdn.result}-ssh"
+#   domain_name_label   = "${random_string.fqdn.result}-ssh"
   tags                = var.tags
 }
 
 resource "azurerm_network_interface" "jumpbox" {
   name                = "jumpbox-nic"
   location            = var.location
-  resource_group_name = azurerm_resource_group.vmss.name
+  resource_group_name = var.resource_group_name
 
   ip_configuration {
     name                          = "IPConfiguration"
-    subnet_id                     = azurerm_subnet.vmss.id
+    subnet_id                     = var.subnet_id
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.jumpbox.id
   }
