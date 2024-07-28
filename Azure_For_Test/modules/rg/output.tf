@@ -1,7 +1,7 @@
-output "resource_group_name" {
-  value = azurerm_resource_group.vmss.name
+output "rg_id" {
+  value = azurerm_resource_group.vmss.id
 }
 
-output "location" {
-  value = azurerm_resource_group.vmss.location
+output "rg_name" {
+  value = azurerm_resource_group.vmss.name
 }

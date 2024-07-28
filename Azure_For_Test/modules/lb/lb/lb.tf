@@ -1,12 +1,12 @@
-
 resource "azurerm_lb" "vmss" {
-  name                = "vmss-lb"
+  name                = var.lb_name
   location            = var.location
-  resource_group_name = var.resource_group_name
+  resource_group_name = var.rg_name
 
   frontend_ip_configuration {
-    name                 = "PublicIPAddress"
-    public_ip_address_id = var.azurerm_public_ip
+    name                 = var.frontend_ip
+    public_ip_address_id = var.public_ip
   }
+
   tags = var.tags
 }
