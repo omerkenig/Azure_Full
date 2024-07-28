@@ -48,9 +48,9 @@ variable "azurerm_resource_group_name" {
 }
 
 variable "subnet_id" {
-description = "ID of the jumpbox subnet"
-type = string
-# default = "Test_Subnet"
+  description = "Azure subnet id"
+  type        = string
+  default     = "subnet_id"
 }
 
 variable "azurerm_lb_backend_address_pool_id" {
@@ -62,4 +62,9 @@ variable "subnet_name" {
   description = "Name of the subnet"
   type        = string
   default     = "Test_AAAAAAAA"
+}
+variable "address_prefixes" {
+  description = "List of address prefixes"
+  type        = list(string)
+  default     = ["10.0.0.0/24"]
 }

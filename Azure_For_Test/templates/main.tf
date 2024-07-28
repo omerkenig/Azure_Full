@@ -1,5 +1,5 @@
 module "azurerm_resource_group" {
-  source                      = "../modules/azurerm_resource_group/"
+  source                      = "../modules/rg/"
   location                    = var.location
   tags                        = var.tags
   azurerm_resource_group_name = var.azurerm_resource_group_name
@@ -24,6 +24,7 @@ module "network" {
   resource_group_name = var.resource_group_name
   name                = var.name
   subnet_name         = var.subnet_name
+  address_prefixes    = var.address_prefixes
   subnet_id           = var.subnet_id
 }
 
@@ -36,5 +37,5 @@ module "vmss" {
   tags                = var.tags
   resource_group_name = var.resource_group_name
   subnet_id           = var.subnet_id
-#   azurerm_lb_backend_address_pool_id = var.azurerm_lb_backend_address_pool_id
+  #   azurerm_lb_backend_address_pool_id = var.azurerm_lb_backend_address_pool_id
 }
