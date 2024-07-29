@@ -23,5 +23,3 @@ variable "address_space" {
 variable "rg_name" {
 }
 
-variable "nsg_id" {
-}
