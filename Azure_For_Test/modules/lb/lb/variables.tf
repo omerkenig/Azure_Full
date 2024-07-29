@@ -19,6 +19,6 @@ variable "tags" {
   default     = "test_lb"
 }
 
-variable "rg_name" {
-}
+variable "rg_name" {}
 variable "public_ip_id" {}
+variable "random_string_fqdn" {}
