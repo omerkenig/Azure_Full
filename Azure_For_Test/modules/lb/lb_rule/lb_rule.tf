@@ -1,11 +1,11 @@
 resource "azurerm_lb_rule" "lbnatrule" {
-  resource_group_name            = var.resource_group_name
-  loadbalancer_id                = azurerm_lb.vmss.id
-  name                           = "http"
-  protocol                       = "Tcp"
+  resource_group_name            = var.rg_name
+  loadbalancer_id                = var.lb_id
+  name                           = var.lb_rule_name
+  protocol                       = var.protocol
   frontend_port                  = var.application_port
   backend_port                   = var.application_port
-  backend_address_pool_ids = [azurerm_lb_backend_address_pool.bpepool.id]
-  frontend_ip_configuration_name = "PublicIPAddress"
-  probe_id                       = azurerm_lb_probe.vmss.id
+  backend_address_pool_ids = [var.lb_backend_address_pool_id]
+  frontend_ip_configuration_name = var.frontend_ip_configuration_name
+  probe_id                       = var.lb_probe_id
 }

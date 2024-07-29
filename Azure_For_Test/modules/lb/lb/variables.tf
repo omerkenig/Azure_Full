@@ -21,4 +21,4 @@ variable "tags" {
 
 variable "rg_name" {
 }
-variable "public_ip" {}
+variable "public_ip_id" {}

@@ -1,5 +1,5 @@
 # # NumberOfMachines = 1
-# variable "vmss" {
+# variable "vm" {
 #   type = map(object({
 #     vm_name = string
 #     nic_name = string

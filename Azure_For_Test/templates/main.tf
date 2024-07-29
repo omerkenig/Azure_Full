@@ -1,20 +1,16 @@
 module "azurerm_resource_group" {
   source                      = "../modules/rg/"
+  azurerm_resource_group_name = var.azurerm_resource_group_name
   location                    = var.location
   tags                        = var.tags
-  azurerm_resource_group_name = var.azurerm_resource_group_name
 }
 
 module "lb" {
-  source                             = "../modules/lb/"
-  application_port                   = var.application_port
-  location                           = var.location
-  tags                               = var.tags
-  name                               = var.name
-  azurerm_public_ip                  = var.azurerm_public_ip
-  resource_group_name                = var.resource_group_name
-  azurerm_resource_group             = var.resource_group_name
-  azurerm_lb_backend_address_pool_id = var.azurerm_lb_backend_address_pool_id
+  source                                  = "../modules/lb"
+
+
+
+
 }
 
 module "network" {
@@ -29,7 +25,7 @@ module "network" {
 }
 
 module "vmss" {
-  source = "../modules/vmss/"
+  source = "../modules/vm/"
 
   admin_password      = var.admin_password
   admin_user          = var.admin_user

@@ -1,4 +1,4 @@
-resource "azurerm_lb_backend_address_pool" "bpepool" {
-  loadbalancer_id = azurerm_lb.vmss.id
-  name            = var.name
+resource "lb_backend_address_pool" "bpepool" {
+  loadbalancer_id = var.lb_name
+  name            = var.pool_name
 }

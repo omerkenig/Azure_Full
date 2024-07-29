@@ -19,5 +19,4 @@ variable "allocation_method" {
   default     = "Static"
 }
 
-variable "rg_name" {
-}
+variable "rg_name" {}

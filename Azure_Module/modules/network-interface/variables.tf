@@ -1,6 +1,6 @@
 # variable "vmname" {
 #     type = string
-#     description = "name of the vmss"
+#     description = "name of the vm"
 # }
 # variable "location" {}
 # variable "resource_group_name" {
