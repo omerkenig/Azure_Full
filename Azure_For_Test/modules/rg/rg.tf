@@ -3,3 +3,10 @@ resource "azurerm_resource_group" "vmss" {
   location = var.location
   tags     = var.tags
 }
+
+resource "random_string" "fqdn" {
+  length  = 6
+  special = false
+  upper   = false
+  number  = false
+}

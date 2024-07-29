@@ -7,9 +7,3 @@ resource "azurerm_public_ip" "vmss" {
   tags                = var.tags
 }
 
-resource "random_string" "fqdn" {
-  length  = 6
-  special = false
-  upper   = false
-  number  = false
-}
