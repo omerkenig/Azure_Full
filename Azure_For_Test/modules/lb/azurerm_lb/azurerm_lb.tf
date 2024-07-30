@@ -1,6 +1,6 @@
 
 resource "azurerm_lb" "vmss" {
-  name                = "vmss-lb"
+  name                = var.lb_rg_name
   location            = var.location
   resource_group_name = var.rg_name
 
