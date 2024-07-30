@@ -9,3 +9,6 @@ output "rg_name" {
 output "random_string_fqdn" {
   value = random_string.fqdn.result
 }
+output "rg_location" {
+  value = azurerm_resource_group.vmss.location
+}
