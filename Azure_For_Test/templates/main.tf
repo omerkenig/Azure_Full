@@ -26,7 +26,7 @@ module "azurerm_public_ip" {
 }
 
 module "azurerm_lb" {
-  source       = "../modules/lb/azurerm_lb"
+  source       = "../modules/loadbalancer/azurerm_lb"
   location     = module.rg.rg_location
   public_ip_id = module.azurerm_public_ip.public_ip_id
   rg_name      = module.rg.rg_name
@@ -34,39 +34,40 @@ module "azurerm_lb" {
   depends_on = [module.rg, module.azurerm_public_ip]
 }
 
-module "address_pool" {
-  source       = "../modules/lb/address_pool"
+module "azurerm_lb_backend_address_pool" {
+    source = "../modules/loadbalancer/azurerm_lb_backend_address_pool"
+
     lb_name = module.azurerm_lb.lb_name
 
-  depends_on = [ module.azurerm_lb]
+#   depends_on = [ module.azurerm_lb]
 
 }
 
 # module "lb_probe" {
-#   source  = "../modules/lb/lb_probe"
+#   source  = "../modules/loadbalancer/lb_probe"
 #   lb_name = module.azurerm_lb.lb_name
 #   rg_name = module.rg.rg_name
 #   depends_on = [module.rg, module.azurerm_lb]
 #
 # }
-# module "address_pool" {
-#   source  = "../modules/lb/address_pool"
+# module "azurerm_lb_backend_address_pool" {
+#   source  = "../modules/loadbalancer/azurerm_lb_backend_address_pool"
 #   lb_name = module.azurerm_public_ip.lb_name
 #   depends_on = [module.azurerm_public_ip]
 #
 # }
 #
 # module "lb_probe" {
-#   source  = "../modules/lb/lb_probe"
+#   source  = "../modules/loadbalancer/lb_probe"
 #   lb_name = module.azurerm_public_ip.lb_name
 #   rg_name = module.rg.rg_name
-#   depends_on = [module.rg, module.lb]
+#   depends_on = [module.rg, module.loadbalancer]
 #
 # }
 #
 # module "lb_rule" {
-#   source                     = "../modules/lb/lb_rule"
-#   lb_backend_address_pool_id = module.address_pool.lb_backend_address_pool_id
+#   source                     = "../modules/loadbalancer/lb_rule"
+#   lb_backend_address_pool_id = module.azurerm_lb_backend_address_pool.lb_backend_address_pool_id
 #   lb_id                      = module.azurerm_public_ip.lb_id
 #   lb_name                    = module.azurerm_public_ip.lb_name
 #   lb_probe_id                = module.lb_probe.lb_probe_id
@@ -87,10 +88,10 @@ module "address_pool" {
 #
 # module "vmss" {
 #   source = "../modules/vm/vmss"
-#   lb_backend_address_pool_id = module.address_pool.lb_backend_address_pool_id
+#   lb_backend_address_pool_id = module.azurerm_lb_backend_address_pool.lb_backend_address_pool_id
 #   rg_name = module.rg.rg_name
 #   subnet_id = module.subnet.subnet_id
-#   depends_on = [module.rg, module.address_pool, module.subnet]
+#   depends_on = [module.rg, module.azurerm_lb_backend_address_pool, module.subnet]
 #
 # }
 #
