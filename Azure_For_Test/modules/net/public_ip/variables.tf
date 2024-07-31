@@ -14,9 +14,11 @@ variable "location" {
   default     = "east us"
 }
 variable "tags" {
-  description = "tags for lb"
-  type        = string
-  default     = "test_lb"
+  description = "Map of the tags to use for azurerm_public_ip"
+  type        = map(string)
+  default = {
+    environment = "test"
+  }
 }
 
 variable "rg_name" {

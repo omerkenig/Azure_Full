@@ -1,7 +1,7 @@
 variable "lb_rule_name" {
 description = "name for lb rule"
   type        = string
-  default     = "http"
+  default     = "Tcp"
 }
 variable "application_port" {
   description = "application port"

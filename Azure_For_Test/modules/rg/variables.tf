@@ -10,7 +10,10 @@ variable "location" {
 }
 
 variable "tags" {
-  description = "tags for rg"
-  type        = string
-  default     = "test_rg"
+  description = "Map of the tags to use for resources groups"
+  type        = map(string)
+  default = {
+    environment = "test"
+  }
 }
+

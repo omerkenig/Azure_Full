@@ -3,4 +3,4 @@ variable "pool_name" {
   description = "Name for the load balancer"
   type        = string
 }
-variable "lb_name" {}
+variable "lb_id" {}

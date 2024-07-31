@@ -19,10 +19,12 @@ variable "private_ip_address_allocation" {
   default     = "Dynamic"
 }
 variable "tags" {
-  description = "tags for network interface"
-  type        = string
-  default     = "test_network_interface"
+  description = "Map of the tags to use for NIC"
+  type        = map(string)
+  default = {
+    environment = "test"
+  }
 }
 variable "rg_name" {}
-variable "subnet_id" {}
+variable "subnet_id_output" {}
 variable "public_ip_jumpbox_id" {}

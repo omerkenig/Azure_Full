@@ -5,20 +5,22 @@ variable "location" {
 }
 
 variable "tags" {
-  description = "tags for rg"
-  type        = string
-  default     = "test_rg"
+  description = "Map of the tags to use for vnet"
+  type        = map(string)
+  default = {
+    environment = "test"
+  }
 }
 
 variable "vnet_name" {
-  description = "name for vnet"
+  description = "Name of the vnet"
   type        = string
-  default     = "vmss-vnet"
+  default     = "my-test-vnet"
 }
 variable "address_space" {
-  description = "address space for vnet"
-  type        = string
-  default     = "10.0.0.0/16"
+  description = "Address space for the vnet"
+  type        = list(string)
+  default     = ["10.0.0.0/16"]
 }
 variable "rg_name" {
 }

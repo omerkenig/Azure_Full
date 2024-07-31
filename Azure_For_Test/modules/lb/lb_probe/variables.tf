@@ -9,5 +9,5 @@ variable "application_port" {
   type        = number
 }
 variable "rg_name" {}
-variable "lb_name" {}
+variable "lb_id" {}
 

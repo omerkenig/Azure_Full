@@ -9,8 +9,6 @@ terraform {
 
 provider "azurerm" {
   features {
-    key_vault_secrets_versioning {
-      enabled = true
+
     }
-  }
 }

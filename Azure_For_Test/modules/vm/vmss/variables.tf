@@ -11,7 +11,7 @@ variable "vmss_name" {
 variable "upgrade_policy_mode" {
   description = "Mode for automatic OS upgrades (manual or automatic)."
   type        = string
-  default     = "manual"
+  default     = "Manual"
 }
 variable "sku_name" {
   description = "Name of the SKU for the VMSS"

@@ -1,7 +1,9 @@
 variable "tags" {
-  description = "tags for azurerm lb"
-  type        = string
-  default     = "test_azurerm_lb"
+  description = "Map of the tags to use for azure LB"
+  type        = map(string)
+  default = {
+    environment = "test"
+  }
 }
 variable "lb_rg_name" {
   description = "name for azurerm lb"
