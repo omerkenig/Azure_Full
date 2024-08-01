@@ -16,7 +16,7 @@ variable "frontend_ip_configuration_name" {
 variable "protocol" {
   description = "protocol"
   type        = string
-  default     = "HTTP"
+  default     = "Tcp"
 }
 variable "lb_backend_address_pool_id" {}
 variable "rg_name" {}

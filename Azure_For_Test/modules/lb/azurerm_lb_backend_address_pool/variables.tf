@@ -1,5 +1,5 @@
 variable "pool_name" {
-  default     = "address_pool_name"
+  default     = "BackEndAddressPool"
   description = "Name for the load balancer"
   type        = string
 }

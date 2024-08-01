@@ -1,12 +1,12 @@
-variable "lb_name" {
-  description = "name for vnet"
+variable "public_ip_vmss_name" {
+  description = "name for public_ip_vmss_name"
   type        = string
-  default     = "vmss-vnet"
+  default     = "vmss-public-ip"
 }
-variable "frontend_ip" {
-  description = "name for frontend ip"
+variable "allocation_method" {
+  description = "Allocation method for public IP addresses"
   type        = string
-  default     = "PublicIPAddress"
+  default     = "Static"
 }
 variable "location" {
   description = "Azure region for resources"
@@ -21,10 +21,5 @@ variable "tags" {
   }
 }
 
-variable "rg_name" {
-    default = "name"
-}
-# variable "public_ip_id" {}
-variable "random_string_fqdn" {
-    default = "name"
-}
+variable "rg_name" {}
+variable "random_string_fqdn" {}

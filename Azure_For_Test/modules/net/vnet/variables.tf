@@ -11,11 +11,10 @@ variable "tags" {
     environment = "test"
   }
 }
-
 variable "vnet_name" {
   description = "Name of the vnet"
   type        = string
-  default     = "my-test-vnet"
+  default     = "vmss-vnet"
 }
 variable "address_space" {
   description = "Address space for the vnet"

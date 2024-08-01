@@ -5,12 +5,16 @@ variable "tags" {
     environment = "test"
   }
 }
-variable "lb_rg_name" {
+variable "lb_name" {
   description = "name for azurerm lb"
   type        = string
   default     = "vmss-lb"
 }
 
-variable "location" {}
+variable "location" {
+  description = "Azure region for resources"
+  type        = string
+  default     = "east us"
+}
 variable "rg_name" {}
 variable "public_ip_id" {}

@@ -1,4 +1,5 @@
 resource "azurerm_lb_rule" "lbnatrule" {
+#   resource_group_name            = var.rg_name
   loadbalancer_id                = var.lb_id
   name                           = var.lb_rule_name
   protocol                       = var.protocol

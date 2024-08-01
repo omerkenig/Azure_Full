@@ -1,7 +1,6 @@
 variable "resource_group_name" {
-  type        = string
-  description = "Azure resource group name"
-  default     = "nsg-public"
+  description = "Name of the resource group in which the resources will be created"
+  default     = "myResourceGroup"
 }
 variable "location" {
   description = "Azure region for resources"
