@@ -30,8 +30,15 @@ module "azurerm_lb" {
   location     = module.rg.rg_location
   public_ip_id = module.azurerm_public_ip.public_ip_id
   rg_name      = module.rg.rg_name
-
   depends_on = [module.rg, module.azurerm_public_ip]
+
+}
+
+module "azurerm_lb_backend_address_pool" {
+  source = "../modules/lb/azurerm_lb_backend_address_pool"
+  lb_id  = module.azurerm_lb.lb_id
+  depends_on = [module.azurerm_lb]
+
 }
 
 module "lb_probe" {
@@ -40,11 +47,6 @@ module "lb_probe" {
   rg_name = module.rg.rg_name
   depends_on = [module.rg, module.azurerm_lb]
 
-}
-module "azurerm_lb_backend_address_pool" {
-  source = "../modules/lb/azurerm_lb_backend_address_pool"
-  depends_on = [module.azurerm_lb]
-  lb_id  = module.azurerm_lb.lb_id
 }
 
 module "lb_rule" {
@@ -58,6 +60,23 @@ module "lb_rule" {
 
 }
 
+module "vmss" {
+  source = "../modules/vm/vmss"
+  lb_backend_address_pool_id = module.azurerm_lb_backend_address_pool.lb_backend_address_pool_id
+  rg_name                    = module.rg.rg_name
+  subnet_id                  = module.subnet.subnet_id_output
+  depends_on = [module.rg, module.azurerm_lb_backend_address_pool, module.subnet]
+}
+
+module "public_ip_jumpbox" {
+  source = "../modules/net/public_ip_jumpbox"
+  random_string_fqdn = module.rg.random_string_fqdn
+  rg_name            = module.rg.rg_name
+  subnet_id_output   = module.subnet.subnet_id_output
+
+  depends_on = [module.rg, module.subnet]
+}
+
 module "nic" {
   source               = "../modules/net/nic"
   public_ip_jumpbox_id = module.azurerm_public_ip.public_ip_id
@@ -66,16 +85,6 @@ module "nic" {
   depends_on = [module.rg, module.subnet, module.azurerm_public_ip]
 
 }
-
-module "vmss" {
-  source                     = "../modules/vm/vmss"
-  lb_backend_address_pool_id = module.azurerm_lb_backend_address_pool.lb_backend_address_pool_id
-  rg_name                    = module.rg.rg_name
-  subnet_id                  = module.subnet.subnet_id_output
-  depends_on = [module.rg, module.azurerm_lb_backend_address_pool, module.subnet]
-
-}
-
 
 module "vm" {
   source  = "../modules/vm/vm"
